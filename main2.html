@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyecto de Machine Learning</title>
+    <style>
+        /* Estilos básicos y minimalistas */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 1em;
+            color: #555;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        select,
+        input[type="file"],
+        input[type="number"] {
+            width: 100%;
+            max-width: 300px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 1em;
+            color: #333;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus,
+        input[type="file"]:focus,
+        input[type="number"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            width: 100%;
+            max-width: 200px;
+            padding: 10px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Proyecto de Machine Learning</h1>
+
+    <!-- Selección de Archivo CSV -->
+    <label for="fileInput">Cargar archivo CSV:</label>
+    <input type="file" id="fileInput" accept=".csv">
+
+    <!-- Selección de Modelo -->
+    <label for="modelSelect">Seleccionar modelo de Machine Learning:</label>
+    <select id="modelSelect">
+        <option value="linear-regression">Regresión Lineal</option>
+        <option value="polynomial-regression">Regresión Polinomial</option>
+        <option value="naive-bayes">Nave Bayes</option>
+        <option value="decision-tree">Árbol de Decisiones</option>
+    </select>
+
+    <!-- Parámetros de Entrenamiento -->
+    <div class="container">
+        <label for="trainPercentage">Porcentaje de entrenamiento:</label>
+        <input type="number" id="trainPercentage" min="1" max="100" value="70">
+
+        <label for="predictionRange">Rango de predicción (para modelos de predicción):</label>
+        <input type="number" id="predictionRange" placeholder="Ingrese el rango de predicción">
+
+        <label for="numClasses">Número de clases (para clasificación):</label>
+        <input type="number" id="numClasses" placeholder="Ingrese el número de clases">
+    </div>
+
+    <!-- Botones de Acción -->
+    <button id="trainBtn">Entrenar</button>
+    <button id="predictBtn">Predecir</button>
+    <button id="showGraphBtn">Mostrar Gráfica</button>
+
+    <!-- Contenedor de Resultados -->
+    <div id="resultsContainer" class="container">
+        <h3>Resultados</h3>
+        <div id="chartContainer"></div>
+    </div>
+
+    <!-- Script de configuración y operaciones -->
+    <script src="https://github.com/tytusdb/tytusjs/blob/main/dist/tytus.js"></script>
+    <script>
+        const trainBtn = document.getElementById('trainBtn');
+        const predictBtn = document.getElementById('predictBtn');
+        const showGraphBtn = document.getElementById('showGraphBtn');
+        const modelSelect = document.getElementById('modelSelect');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        trainBtn.addEventListener('click', () => {
+            const model = modelSelect.value;
+            // Código de entrenamiento aquí, adaptado a cada modelo
+            console.log(`Modelo seleccionado para entrenamiento: ${model}`);
+        });
+
+        predictBtn.addEventListener('click', () => {
+            const model = modelSelect.value;
+            // Código de predicción aquí, adaptado a cada modelo
+            console.log(`Modelo seleccionado para predicción: ${model}`);
+        });
+
+        showGraphBtn.addEventListener('click', () => {
+            // Código para mostrar gráficos
+            console.log("Mostrando gráfica de resultados");
+        });
+    </script>
+</body>
+</html>

@@ -1,118 +1,159 @@
-/* Reset de estilos básicos */
+/* styles.css */
+
+/* Configuración general */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
 body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    background-color: #f3f4f6;
+    background-color: #f4f4f9;
     color: #333;
     line-height: 1.6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px;
 }
 
-/* Título principal */
+/* Encabezado de la página */
 h1 {
-    font-size: 2em;
-    color: #222;
-    margin-bottom: 24px;
-    font-weight: 600;
+    text-align: center;
+    font-size: 2.5em;
+    color: #2a3e52;
+    margin-bottom: 1rem;
 }
 
-/* Etiquetas */
-label {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 5px;
-    display: block;
-    font-weight: 500;
-}
-
-/* Estilos para inputs y selects */
-select,
-input[type="file"],
-input[type="number"] {
-    width: 100%;
-    max-width: 320px;
-    padding: 12px;
-    margin-bottom: 15px;
-    font-size: 1em;
-    color: #333;
-    background: #fff;
-    border: 1px solid #ddd;
+/* Secciones y contenedores */
+section {
+    background: #ffffff;
     border-radius: 8px;
-    outline: none;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-select:focus,
-input[type="file"]:focus,
-input[type="number"]:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
-}
-
-/* Botones con un diseño minimalista */
-button {
-    width: 100%;
-    max-width: 220px;
-    padding: 12px;
-    font-size: 1em;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-button:active {
-    transform: scale(0.98);
-}
-
-/* Contenedores */
-div[id*="Container"] {
-    width: 100%;
-    max-width: 640px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 2rem;
 }
 
-div[id*="Container"] h3 {
-    font-size: 1.3em;
-    color: #333;
-    margin-bottom: 12px;
-    font-weight: 500;
+/* Estilos del selector de modelo */
+.selector-container {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-div[id*="Container"] p {
-    color: #666;
-    font-size: 0.95em;
-    line-height: 1.5;
+.selector-container label {
+    font-weight: bold;
+    color: #2a3e52;
 }
 
-/* Estilos para gráficos */
-#chartkmean,
-#tree,
-canvas#myChart {
-    max-width: 640px;
-    margin: 24px 0;
+.selector-container select {
+    width: 60%;
+    padding: 8px;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+}
+
+/* Contenedor de carga de archivos */
+.file-inputs div {
+    margin-bottom: 1rem;
+}
+
+.file-inputs label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.file-inputs input[type="file"] {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Selección de columnas */
+#columnSelection {
+    margin-top: 1.5rem;
+}
+
+#columnSelection div {
+    margin-bottom: 1rem;
+}
+
+#columnSelection label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+#columnSelection select {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Contenedores de configuración adicional */
+#polynomialDegreeContainer, #trainPercentageContainer, #naiveBayesPredictionContainer {
+    margin-bottom: 1.5rem;
+}
+
+#polynomialDegreeContainer label, #trainPercentageContainer label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+#polynomialDegreeContainer input, #trainPercentageContainer input {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Botón de acción */
+button#trainButton {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    font-size: 1em;
+    color: #ffffff;
+    background-color: #2a3e52;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button#trainButton:hover {
+    background-color: #1f2c3d;
+}
+
+/* Contenedores de resultados */
+#naiveBayesPredictionContainer {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+}
+
+#naiveBayesPredictionContainer h3 {
+    color: #2a3e52;
+    margin-bottom: 10px;
+}
+
+#chartkmean, #tree, #myChart {
+    margin-top: 1.5rem;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .selector-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .selector-container select {
+        width: 100%;
+        margin-top: 0.5rem;
+    }
 }

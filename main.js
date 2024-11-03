@@ -1,22 +1,21 @@
-// Selección de elementos del DOM
 const datasetInput = document.getElementById("datasetInput");
-const datasetInput2 = document.getElementById("datasetInput2"); // Para el segundo CSV
-const datasetInput3 = document.getElementById("datasetInput3"); // Para el segundo CSV
+const datasetInput2 = document.getElementById("datasetInput2"); 
+const datasetInput3 = document.getElementById("datasetInput3"); 
 const algorithmSelect = document.getElementById("algorithmSelect");
 const trainPercentageInput = document.getElementById("trainPercentage");
-const polynomialDegreeInput = document.getElementById("polynomialDegree"); // Nuevo campo para el grado
+const polynomialDegreeInput = document.getElementById("polynomialDegree"); // grado
 const trainButton = document.getElementById("trainButton");
 const xAxisColumnSelect = document.getElementById("xAxisColumn");
 const yAxisColumnSelect = document.getElementById("yAxisColumn");
 const ctx = document.getElementById("myChart").getContext("2d");
 
-let linearModel; // Modelo de regresión lineal
-let polynomialModel; // Modelo de regresión polinómica
-let decisionTreeModel; // Modelo de árbol de decisión
-let csvData1 = []; // Datos del primer CSV
-let csvData2 = []; // Datos del segundo CSV
-let csvData3 = []; // Datos del primer CSV
-let csvData4 = []; // Datos del primer CSV
+let linearModel; 
+let polynomialModel; 
+let decisionTreeModel; 
+let csvData1 = []; // 
+let csvData2 = []; // 
+let csvData3 = []; //
+let csvData4 = []; // 
 let predictions = []; // Predicciones
 let myChart; // Variable para almacenar el gráfico
 let headers = []; // Encabezados del CSV
@@ -25,14 +24,14 @@ let classes;
 
 // Inicializar eventos
 function init() {
-    datasetInput.addEventListener("change", handleFileSelect);
-    datasetInput2.addEventListener("change", handleSecondFileSelect);
-    datasetInput3.addEventListener("change", handleThirdFileSelect);
+    datasetInput.addEventListener("change", Input1);
+    datasetInput2.addEventListener("change", Input2);
+    datasetInput3.addEventListener("change", Input3);
     trainButton.addEventListener("click", handleTrain);
 }
 
 // Manejar la selección de archivos
-function handleFileSelect(event) {
+function Input1(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
@@ -45,7 +44,7 @@ function handleFileSelect(event) {
 }
 
 // Manejar la selección del segundo archivo CSV
-function handleSecondFileSelect(event) {
+function Input2(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
@@ -56,7 +55,7 @@ function handleSecondFileSelect(event) {
         reader.readAsText(file);
     }
 }
-function handleThirdFileSelect(event) {
+function Input3(event) {
     const file = event.target.files[0];
     if (file) {
         const reader = new FileReader();
@@ -68,21 +67,21 @@ function handleThirdFileSelect(event) {
     }
 }
 
-// Procesar datos del CSV
+
 function processCSV(csv, csvNumber) {
     const rows = csv.split("\n").map(row => row.split(",").map(cell => cell.trim()));
     const selectedAlgorithm = algorithmSelect.value;
 
     if (rows.length > 0) {
         if (csvNumber === 1) {
-            headers = rows[0]; // Guardar los encabezados
-            csvData1 = rows.slice(1); // Guardar los datos sin encabezados
+            headers = rows[0]; 
+            csvData1 = rows.slice(1);
             csvData3 = rows.slice(0)
             if (selectedAlgorithm === "naive_bayes") {
                 // Generar formulario Naive Bayes
                 generateNaiveBayesForm(headers);
                 // Separar los atributos y la clase
-                attributes = csvData1.map(row => row.slice(0, -1)); // Todos los datos excepto el último (atributos)
+                attributes = csvData1.map(row => row.slice(0, -1)); 
                 classes = csvData1.map(row => row.slice(-1)[0])
             }
             console.log(csvData1)
@@ -237,8 +236,6 @@ function handleTrain() {
                 target: data.slice(2).map(Number) // Convertir a número
             }));
 
-            // Entrenar la red neuronal con el conjunto de datos de entrada y el valor objetivo
-            // console.log("Entrenando la red neuronal...");
             for (let i = 0; i < 1000; i++) { // Entrenar durante 1000 épocas
                 for (let data of trainingData) {
                     nn.Entrenar(data.input, data.target);
@@ -248,34 +245,13 @@ function handleTrain() {
             // Preparar los datos de predicción
             const predictData = csvData4.map(data => data.map(Number)); // Convertir a número
 
-            // Realizar predicciones con la red entrenada
-            // predictData.forEach((input, index) => {
-            //     const prediction = nn.Predecir(input);
-            //     console.log(`Predicción para el conjunto de entrada ${index + 1}:`, prediction);
-            // });
-
-            // Imprimir los pesos y sesgos de la primera capa
-            // console.log(predictData)
-            // console.log("Pesos de la primera capa:", nn.layerLink[0].obtener_Weights().data);
-            // console.log("Sesgos de la primera capa:", nn.layerLink[0].obtener_Bias().data);
+           
             showNeuralNetworkPredictions(predictData);
             showNeuralNetworkWeights(nn.layerLink[0].obtener_Weights().data);
             showNeuralNetworkBiases(nn.layerLink[0].obtener_Bias().data);
             // Llama a la función para dibujar la gráfica
             drawWeightsBiasesChart(nn.layerLink[0].obtener_Weights().data, nn.layerLink[0].obtener_Bias().data);
-        } else if (selectedAlgorithm === "kmeans") {
-            const isTwoDimensional = csvData2.every(row => Array.isArray(row) && row.length === 2);
-            // processKMeans(csvData3, csvData2);
-            // processKMeans2(csvData3, csvData2);
-            // Verificar si csvData3 es un arreglo de dos dimensiones
-            if (isTwoDimensional) {
-                // csvData3 es un arreglo de dos dimensiones
-                processKMeans2(csvData3, csvData2);
-            } else {
-                // csvData3 es un arreglo de una dimensión
-                processKMeans(csvData3, csvData2);
-            }
-        }else if (selectedAlgorithm === "knn") {
+        } else if (selectedAlgorithm === "knn") {
             calculateDistances(csvData3,csvData2)
         }
     } else {
@@ -284,114 +260,6 @@ function handleTrain() {
 }
 
 
-// rtcythvuyjbinojpk´l+kopjihukgyjf
-function processKMeans(configCsv, dataCsv) {
-    const [k, iterations] = configCsv[0].map(Number);
-    const data = dataCsv.map(line => parseInt(line[0])).filter(num => !isNaN(num));
-
-    if (data.length < k) {
-        alert(`El número de clusters (${k}) no puede ser menor a la cantidad de datos (${data.length})`);
-        return;
-    }
-
-    // Crear instancia de KMeans
-    var kmeans = new LinearKMeans(k, data);
-    let clusterized_data = kmeans.clusterize(k, data, iterations);
-
-    let clusters = new Set([...clusterized_data.map(a => a[1])])
-    clusters = Array.from(clusters)
-    clusters.forEach((cluster, i) => {
-        clusters[i] = [cluster, "#000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); })]
-    });
-    // Preparar los datos para Chart.js
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(function () { drawChart(clusters) });
-
-    function drawChart(clusters) {
-        //let y = Array(data.length).fill(0)
-        var graph_data = new google.visualization.DataTable();
-        graph_data.addColumn('number', 'X')
-        graph_data.addColumn('number', 'Y')
-        graph_data.addColumn({ type: 'string', role: 'style' }); // style col.
-        let a = clusterized_data.map(e => [e[0], 0, `point { size: 7; shape-type: diamond; fill-color: ${clusters[clusters.findIndex(a => a[0] == e[1])][1]}}`])
-
-        // console.log(a)
-        graph_data.addRows(a)
-
-        clusters.forEach(c => {
-            graph_data.addRow([c[0], 0, `point { size: 3; shape-type: square; fill-color: #ff0000`])
-        });
-
-        var options = {
-            title: 'Puntos',
-            seriesType: 'scatter',
-            series: { 1: { type: 'line' } },
-            hAxis: { title: 'X', minValue: 0, maxValue: Math.max(this.data) + 10 },
-            yAxis: { title: 'Y', minValue: 0, maxValue: 5 },
-            legend: 'none'
-        };
-
-        var chart = new google.visualization.ScatterChart(document.getElementById('chartkmean'));
-
-        chart.draw(graph_data, options);
-    }
-}
-
-function processKMeans2(configCsv, dataCsv) {
-    const [k, iterations] = configCsv[0].map(Number);
-    const data = dataCsv.map(pair => [parseInt(pair[0]), parseInt(pair[1])]);
-    const datoDos = data;
-    var kmeanss = new G8_Kmeans({
-        canvas: document.getElementById("myChart"),
-        data: datoDos,
-        k: 4
-    });
-    var kmeans = new _2DKMeans(k, data)
-
-    let clusterized_data = kmeans.clusterize(k, data, iterations)
-
-
-    let clusters = clusterized_data.map(a => [a[1][0], a[1][1]])
-
-
-    clusters = clusters.filter((v, i, a) => a.findIndex(t => (JSON.stringify(t) === JSON.stringify(v))) === i)
-
-    clusters.forEach((cluster, i) => {
-        clusters[i] = [cluster, "#000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); })]
-    });
-
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(function () { drawChart(clusters) });
-
-    function drawChart(clusters) {
-        var graph_data = new google.visualization.DataTable();
-        graph_data.addColumn('number', 'X')
-        graph_data.addColumn('number', 'Y')
-        graph_data.addColumn({ type: 'string', role: 'style' }); // style col.
-        let a = clusterized_data.map(e => [e[0][0], e[0][1], `point { size: 7; shape-type: diamond; fill-color: ${clusters[clusters.findIndex(a => JSON.stringify(a[0]) == JSON.stringify(e[1]))][1]}}`])
-
-        graph_data.addRows(a)
-
-        clusters.forEach(c => {
-            graph_data.addRow([c[0][0], c[0][1], `point { size: 3; shape-type: square; fill-color: #ff0000`])
-        });
-
-
-
-        var options = {
-            title: 'Puntos',
-            seriesType: 'scatter',
-            series: { 1: { type: 'line' } },
-            hAxis: { title: 'X' },
-            yAxis: { title: 'Y' },
-            legend: 'none'
-        };
-
-        var chart = new google.visualization.ScatterChart(document.getElementById('chartkmean'));
-
-        chart.draw(graph_data, options);
-    }
-}
 
 function calculateDistances(csv3, point) {
     // Convierte el contenido de csv3 en un formato de individuos para KNN
