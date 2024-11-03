@@ -164,7 +164,7 @@ function handleTrain() {
             linearModel.fit(xValues, yValues);
             predictions = linearModel.predict(xValues); // Realizar predicciones
             console.log("Predicciones Lineales:", predictions); // Verifica las predicciones
-            alert("Modelo de regresión lineal entrenado y predicciones realizadas.");
+        
             showLinearGraph(xValues, yValues); // Mostrar gráfica de regresión lineal
         } else if (selectedAlgorithm === "polynomial_regression") {
             // Regresión Polinómica
